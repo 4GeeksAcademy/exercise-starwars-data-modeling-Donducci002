@@ -17,7 +17,7 @@ class Person(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    userfavorites: Mapped[List["userFavorites"]] = relationship()
+    userfavorites = relationship("userFavorites", back_populates="user")
     name = Column(String(250), nullable=False)
     firstname = Column(String(250), nullable=False)
     lastname = Column(String(250), nullable=False)
@@ -30,15 +30,17 @@ class Person(Base):
 class userFavorites(Base):
     __tablename__ = 'user_favorites'
     id = Column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    character: Mapped[List["Character"]] = relationship()
-    planet: Mapped[List["Planet"]] = relationship()
+    user_id = Column(ForeignKey("user.id"))
+    user = relationship("User", back_populates="userfavorites")
+    character = relationship("Character", back_populates="userFavorites")
+    planet = relationship("Planet", back_populates="userFavorites")
 
 
 class Planet(Base):
     __tablename__ = 'Planet'
     id = Column(Integer, primary_key=True)
-    user_favorites_id: Mapped[int] = mapped_column(ForeignKey("user_favorites.id"))
+    userfavorites_id = Column(ForeignKey("userfavorites.id"))
+    userfavorites = relationship("userFavorites", back_populates="planet")
     name = Column(String(250), nullable=False)
     Climate = Column(String(250), nullable=True)
     Diameter = Column(Integer, nullable=True)
@@ -50,7 +52,8 @@ class Planet(Base):
 class Character(Base):
     __tablename__ = 'character'
     id = Column(Integer, primary_key=True)
-    user_favorites_id: Mapped[int] = mapped_column(ForeignKey("user_favorites.id"))
+    userfavorites_id = Column(ForeignKey("userfavorites.id"))
+    userfavorites = relationship("userFavorites", back_populates="character")
     name = Column(String(250), nullable=False)
     height = Column(Integer, nullable=True)
     mass = Column(Integer, nullable=True)
