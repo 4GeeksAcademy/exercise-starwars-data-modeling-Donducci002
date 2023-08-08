@@ -31,6 +31,8 @@ class userFavorites(Base):
     __tablename__ = 'user_favorites'
     id = Column(Integer, primary_key=True)
     user_id = Column(ForeignKey("user.id"))
+    planet_id = Column(ForeignKey("planet.id"))
+    character_id = Column(ForeignKey("character.id"))
     user = relationship("User", back_populates="userfavorites")
     character = relationship("Character", back_populates="userFavorites")
     planet = relationship("Planet", back_populates="userFavorites")
