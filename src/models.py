@@ -17,7 +17,7 @@ class Person(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_favorites = relationship("user_Favorites", back_populates="user")
+    user_favorites = relationship("User_favorites", back_populates="user")
     name = Column(String(250), nullable=False)
     firstname = Column(String(250), nullable=False)
     lastname = Column(String(250), nullable=False)
@@ -33,15 +33,15 @@ class User_favorites(Base):
     user_id = Column(ForeignKey("user.id"))
     planet_id = Column(ForeignKey("planet.id"))
     character_id = Column(ForeignKey("character.id"))
-    user = relationship("User", back_populates="user_Favorites")
-    planet = relationship("Planet", back_populates="user_Favorites")
+    user = relationship("User", back_populates="User_favorites")
+    planet = relationship("Planet", back_populates="User_favorites")
 
 
 class Planet(Base):
     __tablename__ = 'Planet'
     id = Column(Integer, primary_key=True)
     
-    user_favorites = relationship("user_Favorites", back_populates="planet")
+    user_favorites = relationship("User_favorites", back_populates="planet")
     name = Column(String(250), nullable=False)
     Climate = Column(String(250), nullable=True)
     Diameter = Column(Integer, nullable=True)
@@ -54,7 +54,7 @@ class Character(Base):
     __tablename__ = 'character'
     id = Column(Integer, primary_key=True)
     
-    user_favorites = relationship("user_Favorites", back_populates="character")
+    user_favorites = relationship("User_favorites", back_populates="character")
     name = Column(String(250), nullable=False)
     height = Column(Integer, nullable=True)
     mass = Column(Integer, nullable=True)
