@@ -27,7 +27,7 @@ class Person(Base):
 
 
 
-class user_Favorites(Base):
+class User_favorites(Base):
     __tablename__ = 'user_favorites'
     id = Column(Integer, primary_key=True)
     user_id = Column(ForeignKey("user.id"))
