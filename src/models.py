@@ -41,7 +41,7 @@ class userFavorites(Base):
 class Planet(Base):
     __tablename__ = 'Planet'
     id = Column(Integer, primary_key=True)
-    userfavorites_id = Column(ForeignKey("userfavorites.id"))
+    
     userfavorites = relationship("userFavorites", back_populates="planet")
     name = Column(String(250), nullable=False)
     Climate = Column(String(250), nullable=True)
@@ -54,7 +54,7 @@ class Planet(Base):
 class Character(Base):
     __tablename__ = 'character'
     id = Column(Integer, primary_key=True)
-    userfavorites_id = Column(ForeignKey("userfavorites.id"))
+    
     userfavorites = relationship("userFavorites", back_populates="character")
     name = Column(String(250), nullable=False)
     height = Column(Integer, nullable=True)
