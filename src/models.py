@@ -12,7 +12,7 @@ from sqlalchemy.orm import mapped_column
 Base = declarative_base()
 
 
-class Person(Base):
+class User(Base):
     __tablename__ = 'user'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
